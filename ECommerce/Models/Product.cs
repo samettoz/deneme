@@ -1,6 +1,8 @@
-﻿namespace ECommerce.Models
+﻿using ECommerce.Models.Abstract;
+
+namespace ECommerce.Models
 {
-    public class Product
+    public class Product : IEntity
     {
         public int Id { get; set; }
         public int BrandId { get; set; }

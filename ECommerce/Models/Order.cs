@@ -1,8 +1,9 @@
-﻿using ECommerce.Models.Enums;
+﻿using ECommerce.Models.Abstract;
+using ECommerce.Models.Enums;
 
 namespace ECommerce.Models
 {
-    public class Order
+    public class Order : IEntity
     {
         public int Id { get; set; }
         public int CustomerId { get; set; }

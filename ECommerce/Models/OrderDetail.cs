@@ -1,6 +1,8 @@
-﻿namespace ECommerce.Models
+﻿using ECommerce.Models.Abstract;
+
+namespace ECommerce.Models
 {
-    public class OrderDetail
+    public class OrderDetail : IEntity
     {
         public int Id { get; set; }
         public int OrderId { get; set; }

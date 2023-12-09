@@ -1,6 +1,8 @@
-﻿namespace ECommerce.Models
+﻿using ECommerce.Models.Abstract;
+
+namespace ECommerce.Models
 {
-    public class Categorie
+    public class Categorie : IEntity
     {
         public int Id { get; set; }
         public string CategorieName { get; set; }

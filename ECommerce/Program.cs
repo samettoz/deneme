@@ -1,4 +1,12 @@
+using ECommerce.Context;
+using ECommerce.Models;
+using ECommerce.Repository;
+using ECommerce.Repository.EntityFramework;
+using ECommerce.Services.Abstract;
+using ECommerce.Services.Concrete;
+using FluentValidation.AspNetCore;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 namespace ECommerce
 {
@@ -9,6 +17,17 @@ namespace ECommerce
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddDbContext<ECommerceDbContext>();
+            builder.Services.AddSingleton<IProductService, ProductManager>();
+            builder.Services.AddSingleton<IEntityRepositoryBase<Product>, EfEntityRepositoryBase<Product, ECommerceDbContext>>();
+
+
+            builder.Services.AddControllers().AddFluentValidation(v => 
+            {
+                v.ImplicitlyValidateChildProperties = true;
+                v.ImplicitlyValidateRootCollectionElements = true;
+                v.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            });
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
