@@ -26,6 +26,13 @@ namespace ECommerce.Controllers
             return Ok(result);
         }
 
+        [HttpGet("productdetail")]
+        public IActionResult GetAllDetail()
+        {
+            var result = _productService.GetAllDetail();
+            return Ok(result);
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {

@@ -11,6 +11,7 @@ namespace ECommerce.Services.Abstract
         IResult Update(Product product);
         IDataResult<Product> GetById(int id);
         IDataResult<List<Product>> GetAll();
+        IDataResult<List<ProductDetailDto>> GetAllDetail();
        
     }
 }

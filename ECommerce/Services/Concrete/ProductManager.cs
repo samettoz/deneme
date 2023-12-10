@@ -44,6 +44,23 @@ namespace ECommerce.Services.Concrete
             return new SuccessDataResult<List<Product>>(_productRepository.GetAll());
         }
 
+        public IDataResult<List<ProductDetailDto>> GetAllDetail()
+        {
+            using (ECommerceDbContext context = new ECommerceDbContext())
+            {
+                var result = (from p in context.Products
+                             join c in context.Categories
+                             on p.CategoryId equals c.Id
+                             select new ProductDetailDto
+                             {
+                                 ProductId = p.Id,
+                                 ProductName = p.ProductName,
+                                 CategoryName = c.CategorieName
+                             }).ToList();
+                return new SuccessDataResult<List<ProductDetailDto>>(result);
+            }
+        }
+
         public IDataResult<Product> GetById(int id)
         {
             return new SuccessDataResult<Product>(_productRepository.Get(p => p.Id == id));
@@ -54,6 +71,8 @@ namespace ECommerce.Services.Concrete
             _productRepository.Update(product);
             return new SuccessResult();
         }
+
+
 
         private IResult CheckIfProdutNameExist(string productName)
         {
