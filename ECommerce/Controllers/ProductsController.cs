@@ -42,12 +42,7 @@ namespace ECommerce.Controllers
         [HttpPost]
         public IActionResult Add(Product product)
         {
-            var validator = new ProductValidator();
-            var validationResult = validator.Validate(product);
-
-            if(!validationResult.IsValid)
-                return BadRequest(validationResult.Errors);
-
+           
             var result = _productService.Add(product);
             if(result.Success)
                 return Ok(result);

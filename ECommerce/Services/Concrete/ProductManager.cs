@@ -5,6 +5,7 @@ using ECommerce.Repository;
 using ECommerce.Repository.EntityFramework;
 using ECommerce.Services.Abstract;
 using ECommerce.Utility.Business;
+using ECommerce.Utility.FluentValidation;
 using ECommerce.Utility.Results;
 using IResult = ECommerce.Utility.Results.IResult;
 
@@ -26,6 +27,7 @@ namespace ECommerce.Services.Concrete
             {
                 return result;
             }
+            ValidationTool.Validate(new ProductValidator(), product);
 
             _productRepository.Add(product);
 
@@ -68,6 +70,8 @@ namespace ECommerce.Services.Concrete
 
         public IResult Update(Product product)
         {
+            ValidationTool.Validate(new ProductValidator(), product);
+
             _productRepository.Update(product);
             return new SuccessResult();
         }
