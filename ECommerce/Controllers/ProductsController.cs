@@ -1,64 +1,58 @@
 ﻿using ECommerce.Models;
 using ECommerce.Services.Abstract;
-using ECommerce.Utility.FluentValidation;
+using ECommerce.Utility.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using IResult = ECommerce.Utility.Results.IResult;
 
 namespace ECommerce.Controllers
 {
-    [Route("api/products")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
         IProductService _productService;
-
         public ProductsController(IProductService productService)
         {
             _productService = productService;
         }
 
-
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IDataResult<List<Product>>> GetAll()
         {
-            var result = _productService.GetAll();
-
-            return Ok(result);
-        }
-
-        [HttpGet("productdetail")]
-        public IActionResult GetAllDetail()
-        {
-            var result = _productService.GetAllDetail();
-            return Ok(result);
+            return await _productService.GetAllAsync();
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IDataResult<Product>> GetById(int id)
         {
-            return Ok();
+            return await _productService.GetByIdAsync(id);
+        }
+
+        [HttpGet("productdetail")]
+        public async Task<IDataResult<List<ProductDetailDto>>> GetAllDetail()
+        {
+            return await _productService.GetAllDetailAsync();
         }
 
         [HttpPost]
-        public IActionResult Add(Product product)
+        public async Task<IResult> Add(Product product)
         {
-           
-            var result = _productService.Add(product);
-            if(result.Success)
-                return Ok(result);
-            return BadRequest(result);
-        }
-
-        [HttpPut]
-        public IActionResult Update(Product product)
-        {
-            return Ok();
+            return await _productService.AddAsync(product);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id) 
+        public async Task<IResult> Delete(int id)
         {
-            return Ok();
+            return await _productService.DeleteAsync(id);
         }
+
+        [HttpPut]
+        public async Task<IResult> Update(Product product)
+        {
+            return await _productService.UpdateAsync(product);
+        }
+
+    
     }
 }

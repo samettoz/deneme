@@ -20,6 +20,25 @@ namespace ECommerce
             builder.Services.AddDbContext<ECommerceDbContext>();
             builder.Services.AddSingleton<IProductService, ProductManager>();
             builder.Services.AddSingleton<IEntityRepositoryBase<Product>, EfEntityRepositoryBase<Product, ECommerceDbContext>>();
+            
+            builder.Services.AddSingleton<IBrandService, BrandManager>();
+            builder.Services.AddSingleton<IEntityRepositoryBase<Brand>, EfEntityRepositoryBase<Brand, ECommerceDbContext>>();
+
+            builder.Services.AddSingleton<ICategorieService, CategorieManager>();
+            builder.Services.AddSingleton<IEntityRepositoryBase<Categorie>, EfEntityRepositoryBase<Categorie, ECommerceDbContext>>();
+
+            builder.Services.AddSingleton<ICustomerService, CustomerManager>();
+            builder.Services.AddSingleton<IEntityRepositoryBase<Customer>, EfEntityRepositoryBase<Customer, ECommerceDbContext>>();
+
+            builder.Services.AddSingleton<IOrderDetailService, OrderDetailManager>();
+            builder.Services.AddSingleton<IEntityRepositoryBase<OrderDetail>, EfEntityRepositoryBase<OrderDetail, ECommerceDbContext>>();
+
+            builder.Services.AddSingleton<IOrderService, OrderManager>();
+            builder.Services.AddSingleton<IEntityRepositoryBase<Order>, EfEntityRepositoryBase<Order, ECommerceDbContext>>();
+
+            
+
+
 
 
             builder.Services.AddControllers().AddFluentValidation(v => 

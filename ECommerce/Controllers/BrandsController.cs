@@ -1,6 +1,9 @@
 ﻿using ECommerce.Models;
+using ECommerce.Services.Abstract;
+using ECommerce.Utility.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using IResult = ECommerce.Utility.Results.IResult;
 
 namespace ECommerce.Controllers
 {
@@ -8,36 +11,40 @@ namespace ECommerce.Controllers
     [ApiController]
     public class BrandsController : ControllerBase
     {
+        IBrandService _brandService;
+        public BrandsController(IBrandService brandService)
+        {
+            _brandService = brandService;
+        }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IDataResult<List<Brand>>> GetAll()
         {
-
-            return Ok();
+            return await _brandService.GetAllAsync();
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IDataResult<Brand>> GetById(int id)
         {
-            return Ok();
+            return await _brandService.GetByIdAsync(id);
         }
 
         [HttpPost]
-        public IActionResult Add(Brand brand)
+        public async Task<IResult> Add(Brand brand)
         {
-            return Ok();
+            return await _brandService.AddAsync(brand);
         }
 
         [HttpPut]
-        public IActionResult Update(Brand brand)
+        public async Task<IResult> Update(Brand brand)
         {
-            return Ok();
+            return await _brandService.UpdateAsync(brand);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IResult> Delete(int id)
         {
-            return Ok();
+            return await _brandService.DeleteAsync(id);
         }
     }
 }

@@ -1,6 +1,10 @@
 ﻿using ECommerce.Models;
+using ECommerce.Services.Abstract;
+using ECommerce.Utility.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client.Extensibility;
+using IResult = ECommerce.Utility.Results.IResult;
 
 namespace ECommerce.Controllers
 {
@@ -8,36 +12,41 @@ namespace ECommerce.Controllers
     [ApiController]
     public class CustomersController : ControllerBase
     {
+        ICustomerService _customerService;
+        public CustomersController(ICustomerService customerService)
+        {
+            _customerService = customerService;
+        }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IDataResult<List<Customer>>> GetAll()
         {
 
-            return Ok();
+            return await _customerService.GetAllAsync();
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IDataResult<Customer>> GetById(int id)
         {
-            return Ok();
+            return await _customerService.GetByIdAsync(id);
         }
 
         [HttpPost]
-        public IActionResult Add(Customer customer)
+        public async Task<IResult> Add(Customer customer)
         {
-            return Ok();
+            return await _customerService.AddAsync(customer);
         }
 
         [HttpPut]
-        public IActionResult Update(Customer customer)
+        public async Task<IResult> Update(Customer customer)
         {
-            return Ok();
+            return await _customerService.UpdateAsync(customer);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IResult> Delete(int id)
         {
-            return Ok();
+            return await _customerService.DeleteAsync(id);
         }
     }
 }

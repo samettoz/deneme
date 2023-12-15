@@ -1,6 +1,9 @@
 ﻿using ECommerce.Models;
+using ECommerce.Services.Abstract;
+using ECommerce.Utility.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using IResult = ECommerce.Utility.Results.IResult;
 
 namespace ECommerce.Controllers
 {
@@ -8,36 +11,41 @@ namespace ECommerce.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
+        IOrderService _orderService;
+        public OrdersController(IOrderService orderService)
+        {
+            _orderService = orderService;
+        }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IDataResult<List<Order>>> GetAll()
         {
 
-            return Ok();
+            return await _orderService.GetAllAsync();
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IDataResult<Order>> GetById(int id)
         {
-            return Ok();
+            return await _orderService.GetByIdAsync(id);
         }
 
         [HttpPost]
-        public IActionResult Add(Order order)
+        public async Task<IResult> Add(Order order)
         {
-            return Ok();
+            return await _orderService.AddAsync(order);
         }
 
         [HttpPut]
-        public IActionResult Update(Order order)
+        public async Task<IResult> Update(Order order)
         {
-            return Ok();
+            return await _orderService.UpdateAsync(order);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IResult> Delete(int id)
         {
-            return Ok();
+            return await _orderService.DeleteAsync(id);
         }
     }
 }

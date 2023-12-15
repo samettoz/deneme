@@ -1,6 +1,9 @@
 ﻿using ECommerce.Models;
+using ECommerce.Services.Abstract;
+using ECommerce.Utility.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using IResult = ECommerce.Utility.Results.IResult;
 
 namespace ECommerce.Controllers
 {
@@ -8,36 +11,41 @@ namespace ECommerce.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
+        ICategorieService _categorieService;
+        public CategoriesController(ICategorieService categorieService)
+        {
+            _categorieService = categorieService;
+        }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IDataResult<List<Categorie>>> GetAll()
         {
 
-            return Ok();
+            return await _categorieService.GetAllAsync();
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IDataResult<Categorie>> GetById(int id)
         {
-            return Ok();
+            return await _categorieService.GetByIdAsync(id);
         }
 
         [HttpPost]
-        public IActionResult Add(Categorie categorie)
+        public async Task<IResult> Add(Categorie categorie)
         {
-            return Ok();
+            return await _categorieService.AddAsync(categorie);
         }
 
         [HttpPut]
-        public IActionResult Update(Categorie categorie)
+        public async Task<IResult> Update(Categorie categorie)
         {
-            return Ok();
+            return await _categorieService.UpdateAsync(categorie);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IResult> Delete(int id)
         {
-            return Ok();
+            return await _categorieService.DeleteAsync(id);
         }
     }
 }
