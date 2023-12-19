@@ -7,6 +7,7 @@ using ECommerce.Services.Abstract;
 using ECommerce.Utility.Business;
 using ECommerce.Utility.FluentValidation;
 using ECommerce.Utility.Results;
+using Microsoft.EntityFrameworkCore;
 using IResult = ECommerce.Utility.Results.IResult;
 
 
@@ -20,37 +21,37 @@ namespace ECommerce.Services.Concrete
             _productRepository = productRepository;
         }
 
-        public IResult Add(Product product)
+        public async Task<IResult> AddAsync(Product product)
         {
-            var result = BusinessRules.Run(CheckIfProdutNameExist(product.ProductName));
+            var result = BusinessRules.Run(await CheckIfProdutNameExist(product.ProductName));
             if (result != null)
             {
                 return result;
             }
             ValidationTool.Validate(new ProductValidator(), product);
 
-            _productRepository.Add(product);
+            await _productRepository.AddAsync(product);
 
             return new SuccessResult();
         }
 
-        public IResult Delete(int id)
+        public async Task<IResult> DeleteAsync(int id)
         {
-            _productRepository.Delete(id);
+            await _productRepository.DeleteAsync(id);
             return new SuccessResult();
         }
 
-        public IDataResult<List<Product>> GetAll()
+        public async Task<IDataResult<List<Product>>> GetAllAsync()
         {
 
-            return new SuccessDataResult<List<Product>>(_productRepository.GetAll());
+            return new SuccessDataResult<List<Product>>(await _productRepository.GetAllAsync());
         }
 
-        public IDataResult<List<ProductDetailDto>> GetAllDetail()
+        public async Task<IDataResult<List<ProductDetailDto>>> GetAllDetailAsync()
         {
             using (ECommerceDbContext context = new ECommerceDbContext())
             {
-                var result = (from p in context.Products
+                var result = await (from p in context.Products
                              join c in context.Categories
                              on p.CategoryId equals c.Id
                              select new ProductDetailDto
@@ -58,31 +59,32 @@ namespace ECommerce.Services.Concrete
                                  ProductId = p.Id,
                                  ProductName = p.ProductName,
                                  CategoryName = c.CategorieName
-                             }).ToList();
+                             }).ToListAsync();
                 return new SuccessDataResult<List<ProductDetailDto>>(result);
             }
         }
 
-        public IDataResult<Product> GetById(int id)
+        public async Task<IDataResult<Product>> GetByIdAsync(int id)
         {
-            return new SuccessDataResult<Product>(_productRepository.Get(p => p.Id == id));
+            return new SuccessDataResult<Product>(await _productRepository.GetAsync(p => p.Id == id));
         }
 
-        public IResult Update(Product product)
+        public async Task<IResult> UpdateAsync(Product product)
         {
             ValidationTool.Validate(new ProductValidator(), product);
 
-            _productRepository.Update(product);
+            await _productRepository.UpdateAsync(product);
             return new SuccessResult();
         }
 
 
 
-        private IResult CheckIfProdutNameExist(string productName)
+        private async Task<IResult> CheckIfProdutNameExist(string productName)
         {
-            var result = _productRepository.GetAll(p => p.ProductName == productName).Any();
+            var products = await _productRepository.GetAllAsync(p => p.ProductName == productName);
+            var result = products.Any();
 
-            if(result) 
+            if (result) 
             {
                 return new ErrorResult("aynı isimde ürün mevcut");
             }
