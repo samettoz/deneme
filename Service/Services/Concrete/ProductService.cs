@@ -31,14 +31,20 @@ namespace Service.Services.Concrete
             return new SuccessResult(); 
         }
 
-        public async Task<IDataResult<List<Product>>> GetAllAsync()
+        public async Task<IDataResult<List<ProductDto>>> GetAllAsync()
         {
-            return new SuccessDataResult<List<Product>>(await _productRepository.GetAllAsync());
+            var products = await _productRepository.GetAllAsync();
+            var productDtos = products.Select(product => _dtoMapper.MapToDto(product)).ToList();
+
+            return new SuccessDataResult<List<ProductDto>>(productDtos);
         }
 
-        public async Task<IDataResult<Product>> GetByIdAsync(int id)
+        public async Task<IDataResult<ProductDto>> GetByIdAsync(int id)
         {
-            return new SuccessDataResult<Product>(await _productRepository.GetAsync(p => p.Id == id));
+            var product = await _productRepository.GetAsync(p => p.Id == id);
+            var productDto = _dtoMapper.MapToDto(product); 
+
+            return new SuccessDataResult<ProductDto>(productDto);
         }
 
         public async Task<IResult> UpdateAsync(ProductDto productDto)

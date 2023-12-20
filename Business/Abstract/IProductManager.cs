@@ -15,7 +15,7 @@ namespace Business.Abstract
         Task<IResult> AddAsync(ProductModel productModel);
         Task<IResult> UpdateAsync(ProductModel productModel);
         Task<IResult> DeleteAsync(int id);
-        Task<IDataResult<List<Product>>> GetAllAsync();
-        Task<IDataResult<Product>> GetByIdAsync(int id);
+        Task<IDataResult<List<ProductModel>>> GetAllAsync();
+        Task<IDataResult<ProductModel>> GetByIdAsync(int id);
     }
 }

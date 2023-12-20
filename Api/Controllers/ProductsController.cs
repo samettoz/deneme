@@ -1,7 +1,6 @@
 ﻿using IResult = Core.Utility.Results.IResult;
 using Business.Abstract;
 using Core.Utility.Results;
-using Entity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Model;
@@ -19,13 +18,13 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IDataResult<List<Product>>> GetAll()
+        public async Task<IDataResult<List<ProductModel>>> GetAll()
         {
             return await _productManager.GetAllAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<IDataResult<Product>> GetById(int id)
+        public async Task<IDataResult<ProductModel>> GetById(int id)
         {
             return await _productManager.GetByIdAsync(id);
         }
