@@ -2,6 +2,8 @@
 
 using Core.Repository;
 using Core.Utility.Results;
+using Dto;
+using DtoMapper;
 using Entity;
 using Service.Services.Abstract;
 
@@ -10,37 +12,40 @@ namespace Service.Services.Concrete
     public class OrderService : IOrderService
     {
         IEntityRepositoryBase<Order> _orderRepository;
-        public OrderService(IEntityRepositoryBase<Order> orderRepository)
+        IDtoMapper<OrderDto, Order> _dtoMapper;
+        public OrderService(IEntityRepositoryBase<Order> orderRepository, IDtoMapper<OrderDto, Order> dtoMapper)
         {
             _orderRepository = orderRepository;
+            _dtoMapper = dtoMapper;
         }
 
-        public async Task<IResult> AddAsync(Order order)
+        public async Task AddAsync(OrderDto orderDto)
         {
+            var order = _dtoMapper.MapToEntity(orderDto);
             await _orderRepository.AddAsync(order);
-            return new SuccessResult();
         }
 
-        public async Task<IResult> DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
             await _orderRepository.DeleteAsync(id);
-            return new SuccessResult();
         }
 
-        public async Task<IDataResult<List<Order>>> GetAllAsync()
+        public async Task<List<OrderDto>> GetAllAsync()
         {
-            return new SuccessDataResult<List<Order>>(await _orderRepository.GetAllAsync());
+            var orders = await _orderRepository.GetAllAsync();
+            return orders.Select(order => _dtoMapper.MapToDto(order)).ToList();
         }
 
-        public async Task<IDataResult<Order>> GetByIdAsync(int id)
+        public async Task<OrderDto> GetByIdAsync(int id)
         {
-            return new SuccessDataResult<Order>(await _orderRepository.GetAsync(o => o.Id == id));
+            var order = await _orderRepository.GetAsync(o => o.Id == id);
+            return _dtoMapper.MapToDto(order);
         }
 
-        public async Task<IResult> UpdateAsync(Order order)
+        public async Task UpdateAsync(OrderDto orderDto)
         {
+            var order = _dtoMapper.MapToEntity(orderDto);
             await _orderRepository.UpdateAsync(order);
-            return new SuccessResult();
         }
     }
 }

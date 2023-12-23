@@ -28,33 +28,34 @@ namespace Business.Concrete
         public async Task<IResult> AddAsync(ProductModel productModel)
         {
             var dto = _modelMapper.MapToDto(productModel);
-            return await _productService.AddAsync(dto);
+            await _productService.AddAsync(dto);
+            return new SuccessResult(); 
         }
 
         public async Task<IResult> DeleteAsync(int id)
         {
-            return await _productService.DeleteAsync(id);
+            await _productService.DeleteAsync(id);
+            return new SuccessResult();
         }
 
         public async Task<IDataResult<List<ProductModel>>> GetAllAsync()
         {
             var productDtos = await _productService.GetAllAsync();
-            var productModels = productDtos.Data.Select(pd => _modelMapper.MapToModel(pd)).ToList();
+            var productModels = productDtos.Select(pd => _modelMapper.MapToModel(pd)).ToList();
             return new SuccessDataResult<List<ProductModel>>(productModels);
         }
 
         public async Task<IDataResult<ProductModel>> GetByIdAsync(int id)
         {
             var productDto = await _productService.GetByIdAsync(id);
-            var productModel = _modelMapper.MapToModel(productDto.Data);
-            return new SuccessDataResult<ProductModel>(productModel);
+            return new SuccessDataResult<ProductModel>(_modelMapper.MapToModel(productDto));
         }
 
         public async Task<IResult> UpdateAsync(ProductModel productModel)
         {
             var productDto = _modelMapper.MapToDto(productModel);
-            return await _productService.UpdateAsync(productDto);
-
+            await _productService.UpdateAsync(productDto);
+            return new SuccessResult();
         }
     }
 }

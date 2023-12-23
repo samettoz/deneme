@@ -1,16 +1,17 @@
 ﻿
 
 using Core.Utility.Results;
-using Entity;
+using Dto;
+
 
 namespace Service.Services.Abstract
 {
     public interface ICategorieService
     {
-        Task<IResult> AddAsync(Categorie categorie);
-        Task<IResult> UpdateAsync(Categorie categorie);
-        Task<IResult> DeleteAsync(int id);
-        Task<IDataResult<Categorie>> GetByIdAsync(int id);
-        Task<IDataResult<List<Categorie>>> GetAllAsync();
+        Task AddAsync(CategorieDto categorieDto);
+        Task UpdateAsync(CategorieDto categorieDto);
+        Task DeleteAsync(int id);
+        Task<CategorieDto> GetByIdAsync(int id);
+        Task<List<CategorieDto>> GetAllAsync();
     }
 }
