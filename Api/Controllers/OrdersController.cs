@@ -12,40 +12,40 @@ namespace Api.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        IOrderManager _orderManager;
-        public OrdersController(IOrderManager orderManager)
+        IOrderBusiness _orderBusiness;
+        public OrdersController(IOrderBusiness orderBusiness)
         {
-            _orderManager = orderManager;
+            _orderBusiness = orderBusiness;
         }
 
         [HttpPost]
         public async Task<IResult> Add(OrderModel orderModel)
         {
-            return await _orderManager.AddAsync(orderModel);
+            return await _orderBusiness.AddAsync(orderModel);
         }
 
         [HttpGet]
         public async Task<IDataResult<List<OrderModel>>> GetAll() 
         {
-            return await _orderManager.GetAllAsync();
+            return await _orderBusiness.GetAllAsync();
         }
 
         [HttpGet("{id}")]
         public async Task<IDataResult<OrderModel>> GetById(int id)
         {
-            return await _orderManager.GetByIdAsync(id);
+            return await _orderBusiness.GetByIdAsync(id);
         }
 
         [HttpPut]
         public async Task<IResult> Update(OrderModel orderModel)
         {
-            return await _orderManager.UpdateAsync(orderModel);
+            return await _orderBusiness.UpdateAsync(orderModel);
         }
 
         [HttpDelete("{id}")]
         public async Task<IResult> Delete(int id)
         {
-            return await _orderManager.DeleteAsync(id);
+            return await _orderBusiness.DeleteAsync(id);
         }
     }
 }

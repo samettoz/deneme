@@ -14,12 +14,12 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
-    public class ProductManager : IProductManager
+    public class ProductBusiness : IProductBusiness
     {
         IProductService _productService;
         IModelMapper<ProductModel, ProductDto> _modelMapper;
 
-        public ProductManager(IProductService productService, IModelMapper<ProductModel, ProductDto> modelMapper)
+        public ProductBusiness(IProductService productService, IModelMapper<ProductModel, ProductDto> modelMapper)
         {
             _productService = productService;
             _modelMapper = modelMapper;

@@ -28,25 +28,25 @@ namespace Api
             builder.Services.AddSingleton<IDtoMapper<ProductDto, Product>, ProductDtoMapper>();
             builder.Services.AddSingleton<IProductService, ProductService>();
             builder.Services.AddSingleton<IModelMapper<ProductModel, ProductDto>, ProductModelMapper>();
-            builder.Services.AddSingleton<IProductManager, ProductManager>();
+            builder.Services.AddSingleton<IProductBusiness, ProductBusiness>();
 
             builder.Services.AddSingleton<IEntityRepositoryBase<Brand>, EfEntityRepositoryBase<Brand, ECommerceDbContext>>();
             builder.Services.AddSingleton<IDtoMapper<BrandDto, Brand>, BrandDtoMapper>();
             builder.Services.AddSingleton<IBrandService, BrandService>();
             builder.Services.AddSingleton<IModelMapper<BrandModel, BrandDto>, BrandModelMapper>();
-            builder.Services.AddSingleton<IBrandManager, BrandManager>();
+            builder.Services.AddSingleton<IBrandBusiness, BrandBusiness>();
 
             builder.Services.AddSingleton<IEntityRepositoryBase<Categorie>, EfEntityRepositoryBase<Categorie, ECommerceDbContext>>();
             builder.Services.AddSingleton<IDtoMapper<CategorieDto, Categorie>, CategorieDtoMapper>();
             builder.Services.AddSingleton<ICategorieService, CategorieService>();
             builder.Services.AddSingleton<IModelMapper<CategorieModel, CategorieDto>, CategorieModelMapper>();
-            builder.Services.AddSingleton<ICategorieManager, CategorieManager>();
+            builder.Services.AddSingleton<ICategorieBusiness, CategorieBusiness>();
 
             builder.Services.AddSingleton<IEntityRepositoryBase<Order>, EfEntityRepositoryBase<Order, ECommerceDbContext>>();
             builder.Services.AddSingleton<IDtoMapper<OrderDto, Order>, OrderDtoMapper>();
             builder.Services.AddSingleton<IOrderService, OrderService>();
             builder.Services.AddSingleton<IModelMapper<OrderModel, OrderDto>, OrderModelMapper>();
-            builder.Services.AddSingleton<IOrderManager, OrderManager>();
+            builder.Services.AddSingleton<IOrderBusiness, OrderBusiness>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -11,40 +11,40 @@ namespace Api.Controllers
     [ApiController]
     public class BrandsController : ControllerBase
     {
-        IBrandManager _brandManager;
-        public BrandsController(IBrandManager brandManager)
+        IBrandBusiness _brandBusiness;
+        public BrandsController(IBrandBusiness brandBusiness)
         {
-            _brandManager = brandManager;
+            _brandBusiness = brandBusiness;
         }
 
         [HttpGet]
         public async Task<IDataResult<List<BrandModel>>> GetAll()
         {
-            return await _brandManager.GetAllAsync();
+            return await _brandBusiness.GetAllAsync();
         }
 
         [HttpGet("{id}")]
         public async Task<IDataResult<BrandModel>> GetById(int id) 
         {
-            return await _brandManager.GetByIdAsync(id);
+            return await _brandBusiness.GetByIdAsync(id);
         }
 
         [HttpPost]
         public async Task<IResult> Add(BrandModel brandModel)
         {
-            return await _brandManager.AddAsync(brandModel);
+            return await _brandBusiness.AddAsync(brandModel);
         }
 
         [HttpPut]
         public async Task<IResult> Update(BrandModel brandModel) 
         {
-            return await _brandManager.UpdateAsync(brandModel);
+            return await _brandBusiness.UpdateAsync(brandModel);
         }
         
         [HttpDelete("{id}")]
         public async Task<IResult> Delete(int id)
         {
-            return await _brandManager.DeleteAsync(id);
+            return await _brandBusiness.DeleteAsync(id);
         }
 
 

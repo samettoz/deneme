@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
-    public class BrandManager : IBrandManager
+    public class BrandBusiness : IBrandBusiness
     {
         IBrandService _brandService;
         IModelMapper<BrandModel, BrandDto> _brandMaper;
-        public BrandManager(IBrandService brandService, IModelMapper<BrandModel, BrandDto> brandMapper)
+        public BrandBusiness(IBrandService brandService, IModelMapper<BrandModel, BrandDto> brandMapper)
         {
             _brandMaper = brandMapper;
             _brandService = brandService;

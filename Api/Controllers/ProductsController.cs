@@ -11,22 +11,22 @@ namespace Api.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        IProductManager _productManager;
-        public ProductsController(IProductManager productManager)
+        IProductBusiness _productBusiness;
+        public ProductsController(IProductBusiness productBusiness)
         {
-            _productManager = productManager;
+            _productBusiness = productBusiness;
         }
 
         [HttpGet]
         public async Task<IDataResult<List<ProductModel>>> GetAll()
         {
-            return await _productManager.GetAllAsync();
+            return await _productBusiness.GetAllAsync();
         }
 
         [HttpGet("{id}")]
         public async Task<IDataResult<ProductModel>> GetById(int id)
         {
-            return await _productManager.GetByIdAsync(id);
+            return await _productBusiness.GetByIdAsync(id);
         }
 
 
@@ -34,19 +34,19 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<IResult> Add(ProductModel productModel)
         {
-            return await _productManager.AddAsync(productModel);
+            return await _productBusiness.AddAsync(productModel);
         }
 
         [HttpDelete("{id}")]
         public async Task<IResult> Delete(int id)
         {
-            return await _productManager.DeleteAsync(id);
+            return await _productBusiness.DeleteAsync(id);
         }
 
         [HttpPut]
         public async Task<IResult> Update(ProductModel productModel)
         {
-            return await _productManager.UpdateAsync(productModel);
+            return await _productBusiness.UpdateAsync(productModel);
         }
     }
 }

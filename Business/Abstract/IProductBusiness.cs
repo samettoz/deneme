@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Business.Abstract
 {
-    public interface IProductManager
+    public interface IProductBusiness
     {
         Task<IResult> AddAsync(ProductModel productModel);
         Task<IResult> UpdateAsync(ProductModel productModel);

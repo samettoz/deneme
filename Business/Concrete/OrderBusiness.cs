@@ -13,12 +13,12 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
-    public class OrderManager : IOrderManager
+    public class OrderBusiness : IOrderBusiness
     {
         IOrderService _orderService;
         IModelMapper<OrderModel, OrderDto> _modelMapper;
 
-        public OrderManager(IOrderService orderService, IModelMapper<OrderModel, OrderDto> modelMapper)
+        public OrderBusiness(IOrderService orderService, IModelMapper<OrderModel, OrderDto> modelMapper)
         {
             _modelMapper = modelMapper;
             _orderService = orderService;

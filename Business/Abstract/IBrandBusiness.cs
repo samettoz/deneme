@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Business.Abstract
 {
-    public interface IBrandManager 
+    public interface IBrandBusiness
     {
         Task<IResult> AddAsync(BrandModel brandModel);
         Task<IResult> UpdateAsync(BrandModel brandModel);

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Business.Abstract
 {
-    public interface ICategorieManager 
+    public interface ICategorieBusiness
     {
         Task<IResult> AddAsync(CategorieModel categorieModel);
         Task<IResult> DeleteAsync(int id);

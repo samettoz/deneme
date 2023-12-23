@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
-    public class CategorieManager : ICategorieManager
+    public class CategorieBusiness : ICategorieBusiness
     {
         ICategorieService _categorieService;
         IModelMapper<CategorieModel, CategorieDto> _modelMapper;
-        public CategorieManager(ICategorieService categorieService, IModelMapper<CategorieModel, CategorieDto> modelMapper)
+        public CategorieBusiness(ICategorieService categorieService, IModelMapper<CategorieModel, CategorieDto> modelMapper)
         {
             _categorieService = categorieService;
             _modelMapper = modelMapper;

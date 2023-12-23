@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Business.Abstract
 {
-    public interface IOrderManager
+    public interface IOrderBusiness
     {
         Task<IResult> AddAsync(OrderModel orderModel);
         Task<IResult> UpdateAsync(OrderModel orderModel);
