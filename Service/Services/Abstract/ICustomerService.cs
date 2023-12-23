@@ -1,17 +1,18 @@
 ﻿
 
 using Core.Utility.Results;
+using Dto;
 using Entity;
 
 namespace Service.Services.Abstract
 {
     public interface ICustomerService
     {
-        Task<IResult> AddAsync(Customer customer);
-        Task<IResult> UpdateAsync(Customer customer);
-        Task<IResult> DeleteAsync(int id);
-        Task<IDataResult<List<Customer>>> GetAllAsync();
-        Task<IDataResult<Customer>> GetByIdAsync(int id);
+        Task AddAsync(CustomerDto customerDto);
+        Task UpdateAsync(CustomerDto customerDto);
+        Task DeleteAsync(int id);
+        Task<List<CustomerDto>> GetAllAsync();
+        Task<CustomerDto> GetByIdAsync(int id);
 
     }
 }

@@ -1,16 +1,17 @@
 ﻿
 
 using Core.Utility.Results;
+using Dto;
 using Entity;
 
 namespace Service.Services.Abstract
 {
     public interface IOrderDetailService
     {
-        Task<IResult> AddAsync(OrderDetail orderDetail);
-        Task<IResult> UpdateAsync(OrderDetail orderDetail);
-        Task<IResult> DeleteAsync(int id);
-        Task<IDataResult<List<OrderDetail>>> GetAllAsync();
-        Task<IDataResult<OrderDetail>> GetByIdAsync(int id);
+        Task AddAsync(OrderDetailDto orderDetailDto);
+        Task UpdateAsync(OrderDetailDto orderDetailDto);
+        Task DeleteAsync(int id);
+        Task<List<OrderDetailDto>> GetAllAsync();
+        Task<OrderDetailDto> GetByIdAsync(int id);
     }
 }
