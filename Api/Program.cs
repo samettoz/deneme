@@ -48,6 +48,20 @@ namespace Api
             builder.Services.AddSingleton<IModelMapper<OrderModel, OrderDto>, OrderModelMapper>();
             builder.Services.AddSingleton<IOrderBusiness, OrderBusiness>();
 
+
+            builder.Services.AddSingleton<IEntityRepositoryBase<Customer>, EfEntityRepositoryBase<Customer, ECommerceDbContext>>();
+            builder.Services.AddSingleton<IDtoMapper<CustomerDto, Customer>, CustomerDtoMapper>();
+            builder.Services.AddSingleton<ICustomerService, CustomerService>();
+            builder.Services.AddSingleton<IModelMapper<CustomerModel, CustomerDto>, CustomerModelMapper>();
+            builder.Services.AddSingleton<ICustomerBusiness, CustomerBusiness>();
+
+            builder.Services.AddSingleton<IEntityRepositoryBase<OrderDetail>, EfEntityRepositoryBase<OrderDetail, ECommerceDbContext>>();
+            builder.Services.AddSingleton<IDtoMapper<OrderDetailDto, OrderDetail>, OrderDetailDtoMapper>();
+            builder.Services.AddSingleton<IOrderDetailService, OrderDetailService>();
+            builder.Services.AddSingleton<IModelMapper<OrderDetailModel, OrderDetailDto>, OrderDetailMapper>();
+            builder.Services.AddSingleton<IOrderDetailBusiness, OrderDetailBusiness>();
+
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

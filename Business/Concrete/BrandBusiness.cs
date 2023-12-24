@@ -31,7 +31,11 @@ namespace Business.Concrete
 
         public async Task<IResult> DeleteAsync(int id)
         {
-            await _brandService.DeleteAsync(id);
+            var result = await _brandService.DeleteAsync(id);
+            if (!result.Success)
+            {
+                return new ErrorResult();
+            }
             return new SuccessResult();
         }
 

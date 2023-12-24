@@ -24,9 +24,13 @@ namespace Service.Services.Concrete
             await _brandRepository.AddAsync(brand);
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task<IResult> DeleteAsync(int id)
         {
+            var brand = await _brandRepository.GetAsync(b => b.Id == id);
+            if (brand == null)
+                return new ErrorResult();
             await _brandRepository.DeleteAsync(id);
+            return new SuccessResult();
         }
 
         public async Task<List<BrandDto>> GetAllAsync()

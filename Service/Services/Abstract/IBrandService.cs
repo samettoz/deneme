@@ -10,7 +10,7 @@ namespace Service.Services.Abstract
     {
         Task AddAsync(BrandDto brandDto);
         Task UpdateAsync(BrandDto brandDto);
-        Task DeleteAsync(int id);
+        Task<IResult> DeleteAsync(int id);
         Task<List<BrandDto>> GetAllAsync();
         Task<BrandDto> GetByIdAsync(int id);
     }
